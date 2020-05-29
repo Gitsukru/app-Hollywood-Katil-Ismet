@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" /> 
+
+    <link rel="stylesheet" href="./style.scss">
+
+    <title>Hollywood Ismet</title>
+</head>
+
+<body class="bg-light">
+    <div class="container">
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+            <img class="mr-3" src="./static/img/appLogo.svg" alt="" width="100" height="100">
+            <div class="lh-100">
+                <h6 class="mb-0 text-white lh-100">Katil Ismet</h6>
+                <small>Since 1901</small>
+            </div>
+        </div>
+        <h1>
+            Musteri Listesi
+        </h1>
+        <div class="d-flex align-item-center card-header-custom card-header">
+            <div class="col mr-5">Name last name</div>
+            <div class="col mr-5">Phone</div>
+            <div class="ml-auto text-right w-100px"></div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="d-flex align-items-center card-header" id="customer-1">
+
+                    <div class="d-flex align-items-center col mr-5">
+                        <i class="fas fa-user-secret client-logo mr-2"></i>
+                        <span class="mr-1">Sukru</span>
+                        <span>Unlu</span>
+                    </div>
+                    <div class="col mr-5">041 76 575 09 15</div>
+                    <button class="btn btn-link btn-block text-left w-100px ml-auto text-right pr-0" type="button"
+                        data-toggle="collapse" data-target="#customer-1-victims">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </div>
+
+                <div id="customer-1-victims" class="collapse show" data-parent="#accordionExample">
+                    <div id="customer-1-victim_1" class="card-body victim-box my-2 mx-3">
+                        <div class="d-flex">
+                            <div class="victim-img-box mr-auto">
+                                <img src="./static/img/Victim-1.svg" width="100" height="100" alt=""
+                                    data-name="victim-img">
+                            </div>
+                            <div class="victim-info-box col ml-3 p-3">
+                                <div class="row">
+                                    <div class="col-12 pb-3">
+                                        <strong class="mr-2">
+                                            <span data-name="victim-name">Onur</span>
+                                            <span data-name="victim-lastName">Kaplan</span>
+                                        </strong>
+                                        <span class="badge badge-info mr-2" data-name="victim-gender">Erkek</span>
+                                        <span class="badge badge-warning" data-name="victim-age">39</span>
+                                        <button
+                                            class="btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn">Mission
+                                            completed <i class="fas fa-check ml-1"></i></button>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="border-top py-2" data-name="victim-adress">
+                                            <strong>Adres 1:</strong> Lorem ipsum dolor, sit amet consectetur
+                                            adipisicing elit.</div>
+                                        <div class="border-top py-2" data-name="victim-adress">
+                                            <strong>Adres 2:</strong> Lorem ipsum dolor, sit amet consectetur
+                                            adipisicing elit.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="customer-1-victim_2" class="card-body victim-box my-2 mx-3">
+                        <div class="d-flex">
+                            <div class="victim-img-box mr-auto">
+                                <img src="./static/img/Victim-2.svg" width="100" height="100" alt=""
+                                    data-name="victim-img">
+                            </div>
+                            <div class="victim-info-box col ml-3 p-3">
+                                <div class="row">
+                                    <div class="col-12 pb-3">
+                                        <strong class="mr-2">
+                                            <span data-name="victim-name">Onur</span>
+                                            <span data-name="victim-lastName">Kaplan</span>
+                                        </strong>
+                                        <span class="badge badge-info mr-2" data-name="victim-gender">Erkek</span>
+                                        <span class="badge badge-warning" data-name="victim-age">39</span>
+                                        <button
+                                            class="btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn">Mission
+                                            completed <i class="fas fa-check ml-1"></i></button>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="border-top py-2" data-name="victim-adress">
+                                            <strong>Adres 1:</strong> Lorem ipsum dolor, sit amet consectetur
+                                            adipisicing elit.</div>
+                                        <div class="border-top py-2" data-name="victim-adress">
+                                            <strong>Adres 2:</strong> Lorem ipsum dolor, sit amet consectetur
+                                            adipisicing elit.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex mt-2 px-3 mb-4">
+                        <button class="btn btn-danger btn-sm ml-auto" data-toggle="modal" data-target="#victim-register">Add victim<i
+                                class="fas fa-user ml-1"></i></button>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="d-flex align-items-center card-header" id="customer-2">
+
+                        <div class="d-flex align-items-center col mr-5">
+                            <i class="fas fa-user-secret client-logo mr-2"></i>
+                            <span class="mr-1">Onur</span>
+                            <span>Kaplan</span>
+                        </div>
+                        <div class="col mr-5">041 76 575 09 15</div>
+                        <button class="btn btn-link btn-block text-left w-100px ml-auto text-right pr-0" type="button"
+                            data-toggle="collapse" data-target="#customer-2-victims">
+                            <i class="fas fa-angle-down"></i>
+                        </button>
+                    </div>
+
+                    <div id="customer-2-victims" class="collapse" aria-labelledby="headingOne"
+                        data-parent="#accordionExample">
+
+                        <div class="d-flex mt-2 px-3 mb-4">
+                            <button class="btn btn-danger btn-sm ml-auto" data-toggle="modal" data-target="#victim-register">Add victim <i
+                                    class="fas fa-user"></i></button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <div class="d-flex mt-2 ">
+            <button class="btn btn-success ml-auto" data-toggle="modal" data-target="#customer-register">Add customer
+                <i class="fas fa-user-secret ml-1"></i></button>
+        </div>
+
+
+
+        <!-- Modal customer -->
+        <div class="modal fade" id="customer-register" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New customer</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input  type="text" class="form-control" id="customer-name"placeholder="Isim..">
+                            </div>
+                            <div class="form-group">
+                                <input  type="text" class="form-control" id="customer-lastName"placeholder="Soyisim name..">
+                            </div>
+                            <div class="form-group">
+                                <input  type="text" class="form-control" id="customer-phone"placeholder="Telefon..">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!--Victim modal-->
+        <div class="modal fade" id="victim-register" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New victim</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <input  type="text" class="form-control" id="victim-name" placeholder="Isim..">
+                                </div>
+                                <div class="form-group col-6">
+                                    <input  type="text" class="form-control" id="victim-lastName" placeholder="Soyisim..">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <input  type="text" class="form-control" id="victim-age" placeholder="Yas..">
+                                </div>
+                                <div class="form-group col-6">
+                                   <select class="form-control" id="victim-gender">
+                                       <option selected>Cinsiyeti seç</option>
+                                       <option>Male</option>
+                                       <option>Femal</option>
+                                   </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input  type="text" class="form-control" id="victim-img" placeholder="photo..">
+                            </div>
+                            <div class="form-group">
+                                <input  type="text" class="form-control" id="victim-adress-1" placeholder="Adres..">
+                            </div>
+    
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+
+        <script src="./app.js"></script>
+</body>
+
+</html>
