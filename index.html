@@ -44,129 +44,7 @@
 
 
 
-        <div class="accordion" id="accordionExample">
-            <div class="card">
-                <div class="d-flex align-items-center card-header" id="customer-1">
-
-                    <div class="d-flex align-items-center col mr-5">
-                        <i class="fas fa-user-secret client-logo mr-2"></i>
-                        <span class="mr-1">Sukru</span>
-                        <span>Unlu</span>
-                    </div>
-                    <div class="col mr-5">041 76 575 09 15</div>
-                    <button class="btn btn-link btn-block text-left w-100px ml-auto text-right pr-0" type="button"
-                        data-toggle="collapse" data-target="#customer-1-victims">
-                        <i class="fas fa-angle-down"></i>
-                    </button>
-                </div>
-
-                <div id="customer-1-victims" class="collapse show" data-parent="#accordionExample">
-                    <div id="customer-1-victim_1" class="card-body victim-box my-2 mx-3">
-                        <div class="d-flex">
-                            <div class="victim-img-box mr-auto">
-                                <img src="./static/img/Victim-1.svg" width="100" height="100" alt=""
-                                    data-name="victim-img">
-                            </div>
-                            <div class="victim-info-box col ml-3 p-3">
-                                <div class="row">
-                                    <div class="col-12 pb-3">
-                                        <strong class="mr-2">
-                                            <span data-name="victim-name">Onur</span>
-                                            <span data-name="victim-lastName">Kaplan</span>
-                                        </strong>
-                                        <span class="badge badge-info mr-2" data-name="victim-gender">Erkek</span>
-                                        <span class="badge badge-warning" data-name="victim-age">39</span>
-                                        <button
-                                            class="btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn">Mission
-                                            completed <i class="fas fa-check ml-1"></i></button>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="border-top py-2" data-name="victim-adress">
-                                            <strong>Adres 1:</strong> Lorem ipsum dolor, sit amet consectetur
-                                            adipisicing elit.</div>
-                                        <div class="border-top py-2" data-name="victim-adress">
-                                            <strong>Adres 2:</strong> Lorem ipsum dolor, sit amet consectetur
-                                            adipisicing elit.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="customer-1-victim_2" class="card-body victim-box my-2 mx-3">
-                        <div class="d-flex">
-                            <div class="victim-img-box mr-auto">
-                                <img src="./static/img/Victim-2.svg" width="100" height="100" alt=""
-                                    data-name="victim-img">
-                            </div>
-                            <div class="victim-info-box col ml-3 p-3">
-                                <div class="row">
-                                    <div class="col-12 pb-3">
-                                        <strong class="mr-2">
-                                            <span data-name="victim-name">Onur</span>
-                                            <span data-name="victim-lastName">Kaplan</span>
-                                        </strong>
-                                        <span class="badge badge-info mr-2" data-name="victim-gender">Erkek</span>
-                                        <span class="badge badge-warning" data-name="victim-age">39</span>
-                                        <button
-                                            class="btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn">Mission
-                                            completed <i class="fas fa-check ml-1"></i></button>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="border-top py-2" data-name="victim-adress">
-                                            <strong>Adres 1:</strong> Lorem ipsum dolor, sit amet consectetur
-                                            adipisicing elit.</div>
-                                        <div class="border-top py-2" data-name="victim-adress">
-                                            <strong>Adres 2:</strong> Lorem ipsum dolor, sit amet consectetur
-                                            adipisicing elit.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex mt-2 px-3 mb-4">
-                        <button class="btn btn-danger btn-sm ml-auto" data-toggle="modal" data-target="#victim-register">Add victim<i
-                                class="fas fa-user ml-1"></i></button>
-                    </div>
-                </div>
-
-
-                <div class="card">
-                    <div class="d-flex align-items-center card-header" id="customer-2">
-
-                        <div class="d-flex align-items-center col mr-5">
-                            <i class="fas fa-user-secret client-logo mr-2"></i>
-                            <span class="mr-1">Onur</span>
-                            <span>Kaplan</span>
-                        </div>
-                        <div class="col mr-5">041 76 575 09 15</div>
-                        <button class="btn btn-link btn-block text-left w-100px ml-auto text-right pr-0" type="button"
-                            data-toggle="collapse" data-target="#customer-2-victims">
-                            <i class="fas fa-angle-down"></i>
-                        </button>
-                    </div>
-
-                    <div id="customer-2-victims" class="collapse" aria-labelledby="headingOne"
-                        data-parent="#accordionExample">
-
-                        <div class="d-flex mt-2 px-3 mb-4">
-                            <button class="btn btn-danger btn-sm ml-auto" data-toggle="modal" data-target="#victim-register">Add victim <i
-                                    class="fas fa-user"></i></button>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-
-
-
-
-
-
-
+        <div class="accordion" id="customer-list-container">
 
         </div>
         <div class="d-flex mt-2 ">
@@ -200,7 +78,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Kaydet</button>
+                        <button type="button" class="btn btn-primary" data-btn="newCustomerBtn">Kaydet</button>
                     </div>
                 </div>
             </div>
@@ -242,13 +120,13 @@
                                 <input  type="text" class="form-control" id="victim-img" placeholder="photo..">
                             </div>
                             <div class="form-group">
-                                <input  type="text" class="form-control" id="victim-adress-1" placeholder="Adres..">
+                                <input  type="text" class="form-control" id="victim-adress" placeholder="Adres..">
                             </div>
     
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Kaydet</button>
+                        <button type="button" class="btn btn-primary" data-btn="newVictimBtn">Kaydet</button>
                     </div>
                 </div>
             </div>

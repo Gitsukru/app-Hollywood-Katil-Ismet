@@ -54,4 +54,8 @@
   font-size: 45px;
 }
 
+.card-header {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=/style.97fcb138.css.map */

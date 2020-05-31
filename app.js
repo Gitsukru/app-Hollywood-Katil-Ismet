@@ -28,7 +28,7 @@
  *      - storage.js
  *      - data 
  *          - musteriler:   ISIM SOYISIM   TELEFON                    class Client
- *          - Kurbanlar:    FOTOGRAF(URL) ISIM SOYISIM YAS CINSIYET            class Victims (extend super kullanilabilirmi ?)
+ *          - Kurbanlar:    FOTOGRAF(URL) ISIM SOYISIM YAS CINSIYET   class Victims (extend super kullanilabilirmi ?)
  *              - Adresler: adres1  SOKAK NUMARA SEHIR ULKE,
  *                          adres2  SOKAK NUMARA SEHIR ULKE,
  *                          adres3  SOKAK NUMARA SEHIR ULKE,
@@ -42,21 +42,54 @@
  *          -
  * 
  */
-let data = [];
 
-data = [{
-    customerId: "",
-    customerName: "",
-    customerLastName: "",
-    customerPhone: "",
-    customerVictims: [{
-        victimId: "",
-        victimImg: "",
-        victimName: "",
-        victimLastname: "",
-        victimAge: "",
-        victimGender: "",
-        victimAdresses: [],
-        victimStatus: false
-    }]
-}]
+import {customerCreator} from "./src/view/customerCreator";
+import {victimCreator} from "./src/view/victimCreator";
+
+
+customerCreator();
+victimCreator();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let data = [];
+
+// data = [{
+//     customerId: "",
+//     customerName: "",
+//     customerLastName: "",
+//     customerPhone: "",
+//     customerVictims: [{
+//         victimId: "",
+//         victimImg: "",
+//         victimName: "",
+//         victimLastname: "",
+//         victimAge: "",
+//         victimGender: "",
+//         victimAdresses: [],
+//         victimStatus: false
+//     }]
+// }]
