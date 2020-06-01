@@ -117,13 +117,24 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/model/customer.js":[function(require,module,exports) {
+})({"src/view/victimTemplate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.victimTemplate = void 0;
+var victimTemplate = "\n<div id=\"__ID__\" class=\"card-body victim-box my-2 mx-3\">\n<div class=\"d-flex\">\n    <div class=\"victim-img-box mr-auto\">\n        <img src=\"__IMG__\" width=\"100\" height=\"100\" alt=\"\" data-name=\"victim-img\">\n    </div>\n    <div class=\"victim-info-box col ml-3 p-3\">\n        <div class=\"row\">\n            <div class=\"col-12 pb-3\">\n                <strong class=\"mr-2\">\n                    <span data-name=\"victim-name\">__NAME__</span>\n                    <span data-name=\"victim-lastName\">__LASTNAME__</span>\n                </strong>\n                <span class=\"badge badge-info mr-2\" data-name=\"victim-gender\">__GENDER__</span>\n                <span class=\"badge badge-warning\" data-name=\"victim-age\">__AGE__</span>\n                <button class=\"btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn\">Mission\n                    completed <i class=\"fas fa-check ml-1\"></i></button>\n            </div>\n            <div class=\"col-12\">\n                <div class=\"border-top py-2\" data-name=\"victim-address\">\n                    <strong>Adres 1:</strong>__ADDRESS__</div>\n            </div>\n        </div>\n        </div>\n    </div>\n</div>";
+exports.victimTemplate = victimTemplate;
+},{}],"src/model/customer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Customer = void 0;
+
+var _victimTemplate = require("../view/victimTemplate");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -140,8 +151,10 @@ var Customer = /*#__PURE__*/function () {
     key: "addNew",
     value: function addNew(customer) {
       var customerListContainer = document.querySelector("#customer-list-container");
-      var cutomerTemplate = "\n        <div class=\"card\">\n        <div class=\"d-flex align-items-center card-header\" data-toggle=\"collapse\" data-target=\"#".concat(customer.id, "\">\n\n            <div class=\"d-flex align-items-center col mr-5\">\n                <i class=\"fas fa-user-secret client-logo mr-2\"></i>\n                <span class=\"mr-1\">").concat(customer.name, "</span>\n                <span>").concat(customer.lastName, "</span>\n            </div>\n            <div class=\"col mr-5\">").concat(customer.phone, "</div>\n            <button class=\"btn btn-link btn-block text-left w-100px ml-auto text-right pr-0\" type=\"button\">\n                <i class=\"fas fa-angle-down\"></i>\n            </button>\n        </div>\n\n        <div id=\"").concat(customer.id, "\" class=\"collapse\" data-parent=\"#customer-list-container\">\n\n            <div class=\"d-flex mt-2 px-3 mb-4\">\n                <button class=\"btn btn-danger btn-sm ml-auto add-victim-modal-btn\" data-toggle=\"modal\" data-target=\"#victim-register\">Add victim <i class=\"fas fa-user\"></i></button>\n            </div>\n\n        </div>\n        </div>");
-      customerListContainer.innerHTML += cutomerTemplate;
+      var customerTemplate = "\n        <div class=\"card\">\n            <div class=\"d-flex align-items-center card-header\" data-toggle=\"collapse\" data-target=\"#".concat(customer.id, "\">\n                <div class=\"d-flex align-items-center col mr-5\">\n                    <i class=\"fas fa-user-secret client-logo mr-2\"></i>\n                    <span class=\"mr-1\">").concat(customer.name, "</span>\n                    <span>").concat(customer.lastName, "</span>\n                </div>\n                <div class=\"col mr-5\">").concat(customer.phone, "</div>\n                <button class=\"btn btn-link btn-block text-left w-100px ml-auto text-right pr-0\" type=\"button\">\n                    <i class=\"fas fa-angle-down\"></i>\n                </button>\n            </div>\n\n            <div id=\"").concat(customer.id, "\" class=\"collapse\" data-parent=\"#customer-list-container\">\n            ").concat(customer.victims.reduce(function (carry, victim) {
+        return carry + _victimTemplate.victimTemplate.replace(/__ID__/, victim.id).replace(/__NAME__/, victim.name).replace(/__LASTNAME__/, victim.lastName).replace(/__AGE__/, victim.age).replace(/__GENDER__/, victim.gender).replace(/__IMG__/, victim.img).replace(/__ADDRESS__/, victim.address);
+      }, ''), "\n\n                <div class=\"d-flex mt-2 px-3 mb-4\">\n                    <button class=\"btn btn-danger btn-sm ml-auto add-victim-modal-btn\" data-toggle=\"modal\" data-target=\"#victim-register\">Add victim <i class=\"fas fa-user\"></i></button>\n                </div>\n\n            </div>\n        </div>");
+      customerListContainer.innerHTML += customerTemplate;
     }
   }]);
 
@@ -149,17 +162,89 @@ var Customer = /*#__PURE__*/function () {
 }();
 
 exports.Customer = Customer;
-},{}],"src/view/customerCreator.js":[function(require,module,exports) {
+},{"../view/victimTemplate":"src/view/victimTemplate.js"}],"src/model/storage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.customerCreator = customerCreator;
+exports.DbManager = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var DbManager = /*#__PURE__*/function () {
+  function DbManager() {
+    _classCallCheck(this, DbManager);
+
+    this.dbName = "katil";
+  }
+
+  _createClass(DbManager, [{
+    key: "getDb",
+    value: function getDb() {
+      var people;
+
+      if (localStorage.getItem(this.dbName) === null) {
+        people = [];
+        return people;
+      } //people degiskenine localstorage da ki data dbName
+
+
+      people = JSON.parse(localStorage.getItem(this.dbName));
+      return people;
+    } //localstorage setDb islemi metodu 1 parametre olarak aliyor ve ne gonderecekse 
+    //onu belirtimis oluyoruz
+
+  }, {
+    key: "setDb",
+    value: function setDb(person) {
+      //local storage datalarini cekmek icin  people degiskene getDb metodu ataniyor
+      var people = this.getDb(); //localstorage dan cektigimiz tum datalara parametre ile gelen data push ediliyor
+
+      people.push(person); // localstorage a setItem ile metodu ile guncel data yeniden gönderiliyor
+      // localStorage setItem islemi iki parametre aliyor (key, value) people i 
+      //json.sringFy formatinda dbName("Katil") key in karsiligina set ediyor
+
+      this.updateItem(people);
+    }
+  }, {
+    key: "addVictim",
+    value: function addVictim(victim, selectedCustomerId) {
+      var people = this.getDb();
+      var cIndex = people.findIndex(function (item) {
+        return item.id === selectedCustomerId;
+      });
+      people[cIndex].victims.push(victim);
+      this.updateItem(people);
+    }
+  }, {
+    key: "updateItem",
+    value: function updateItem(data) {
+      localStorage.setItem(this.dbName, JSON.stringify(data));
+    }
+  }]);
+
+  return DbManager;
+}();
+
+exports.DbManager = DbManager;
+},{}],"src/view/eventsCustomer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.eventsCustomer = eventsCustomer;
 
 var _customer = require("../model/customer");
 
-function customerCreator() {
+var _storage = require("../model/storage");
+
+function eventsCustomer() {
   var customerName = document.querySelector("#customer-name");
   var customerLastName = document.querySelector("#customer-lastName");
   var customerPhone = document.querySelector("#customer-phone");
@@ -169,8 +254,11 @@ function customerCreator() {
       id: "c-" + new Date().getTime(),
       name: customerName.value,
       lastName: customerLastName.value,
-      phone: customerPhone.value
+      phone: customerPhone.value,
+      victims: []
     };
+    var db = new _storage.DbManager();
+    db.setDb(customer);
     var newCustomer = new _customer.Customer();
     newCustomer.addNew(customer);
     customerName.value = "";
@@ -178,13 +266,15 @@ function customerCreator() {
     customerPhone.value = "";
   });
 }
-},{"../model/customer":"src/model/customer.js"}],"src/model/victims.js":[function(require,module,exports) {
+},{"../model/customer":"src/model/customer.js","../model/storage":"src/model/storage.js"}],"src/model/victims.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Victims = void 0;
+
+var _victimTemplate = require("../view/victimTemplate");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -201,8 +291,10 @@ var Victims = /*#__PURE__*/function () {
     key: "addNew",
     value: function addNew(victim, selectedCustomerId) {
       var victimListContainer = document.querySelector("#".concat(selectedCustomerId));
-      var victimTemplate = "\n        <div id=\"customer-1-victim_1\" class=\"card-body victim-box my-2 mx-3\">\n        <div class=\"d-flex\">\n            <div class=\"victim-img-box mr-auto\">\n                <img src=\"".concat(victim.img, "\" width=\"100\" height=\"100\" alt=\"\" data-name=\"victim-img\">\n            </div>\n            <div class=\"victim-info-box col ml-3 p-3\">\n                <div class=\"row\">\n                    <div class=\"col-12 pb-3\">\n                        <strong class=\"mr-2\">\n                            <span data-name=\"victim-name\">").concat(victim.name, "</span>\n                            <span data-name=\"victim-lastName\">").concat(victim.lastName, "</span>\n                        </strong>\n                        <span class=\"badge badge-info mr-2\" data-name=\"victim-gender\">").concat(victim.gender, "</span>\n                        <span class=\"badge badge-warning\" data-name=\"victim-age\">").concat(victim.age, "</span>\n                        <button class=\"btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn\">Mission\n                            completed <i class=\"fas fa-check ml-1\"></i></button>\n                    </div>\n                    <div class=\"col-12\">\n                        <div class=\"border-top py-2\" data-name=\"victim-adress\">\n                            <strong>Adres 1:</strong> ").concat(victim.adress, "</div>\n                    </div>\n                </div>\n                </div>\n            </div>\n        </div>");
-      victimListContainer.insertAdjacentHTML("afterbegin", victimTemplate);
+
+      var victimTemp = _victimTemplate.victimTemplate.replace(/__ID__/, victim.id).replace(/__NAME__/, victim.name).replace(/__LASTNAME__/, victim.lastName).replace(/__AGE__/, victim.age).replace(/__GENDER__/, victim.gender).replace(/__IMG__/, victim.img).replace(/__ADDRESS__/, victim.address);
+
+      victimListContainer.insertAdjacentHTML("afterbegin", victimTemp);
     }
   }]);
 
@@ -210,26 +302,38 @@ var Victims = /*#__PURE__*/function () {
 }();
 
 exports.Victims = Victims;
-},{}],"src/view/victimCreator.js":[function(require,module,exports) {
+;
+},{"../view/victimTemplate":"src/view/victimTemplate.js"}],"src/view/eventsVictim.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.victimCreator = victimCreator;
+exports.eventsVictim = eventsVictim;
 
 var _victims = require("../model/victims");
 
-function victimCreator() {
+var _storage = require("../model/storage");
+
+function eventsVictim() {
   var victimName = document.querySelector("#victim-name");
   var victimLastName = document.querySelector("#victim-lastName");
   var victimAge = document.querySelector("#victim-age");
   var victimGender = document.querySelector("#victim-gender");
   var victimImg = document.querySelector("#victim-img");
-  var victimAdress = document.querySelector("#victim-adress");
+  var victimAddress = document.querySelector("#victim-address");
   var newVictimBtn = document.querySelector("[data-btn='newVictimBtn']");
   var customerListContainer = document.querySelector("#customer-list-container");
   var selectedCustomerId;
+  customerListContainer.addEventListener("click", function (e) {
+    var targetElement = e.target;
+    console.log(e.target);
+
+    if (targetElement.classList.contains("add-victim-modal-btn")) {
+      selectedCustomerId = targetElement.parentElement.parentElement.getAttribute("id");
+      console.log(selectedCustomerId);
+    }
+  });
   newVictimBtn.addEventListener("click", function () {
     var victim = {
       id: "v-" + new Date().getTime(),
@@ -238,26 +342,61 @@ function victimCreator() {
       age: victimAge.value,
       gender: victimGender.value,
       img: victimImg.value,
-      adress: victimAdress.value
+      address: victimAddress.value
     };
     var newVictim = new _victims.Victims();
     newVictim.addNew(victim, selectedCustomerId);
-  });
-  customerListContainer.addEventListener("click", function (e) {
-    var targetElement = e.target;
-
-    if (targetElement.classList.contains("add-victim-modal-btn")) {
-      selectedCustomerId = targetElement.parentElement.parentElement.getAttribute("id");
-      console.log(selectedCustomerId);
-    }
+    var db = new _storage.DbManager();
+    db.addVictim(victim, selectedCustomerId);
   });
 }
-},{"../model/victims":"src/model/victims.js"}],"app.js":[function(require,module,exports) {
+},{"../model/victims":"src/model/victims.js","../model/storage":"src/model/storage.js"}],"src/model/initialize.js":[function(require,module,exports) {
 "use strict";
 
-var _customerCreator = require("./src/view/customerCreator");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Initialize = void 0;
 
-var _victimCreator = require("./src/view/victimCreator");
+var _storage = require("./storage");
+
+var _customer = require("./customer");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Initialize = /*#__PURE__*/function () {
+  function Initialize() {
+    _classCallCheck(this, Initialize);
+  }
+
+  _createClass(Initialize, [{
+    key: "init",
+    value: function init() {
+      var customer = new _customer.Customer();
+      var db = new _storage.DbManager();
+      var people = db.getDb();
+      people.forEach(function (person) {
+        customer.addNew(person);
+      });
+    }
+  }]);
+
+  return Initialize;
+}();
+
+exports.Initialize = Initialize;
+},{"./storage":"src/model/storage.js","./customer":"src/model/customer.js"}],"app.js":[function(require,module,exports) {
+"use strict";
+
+var _eventsCustomer = require("./src/view/eventsCustomer");
+
+var _eventsVictim = require("./src/view/eventsVictim");
+
+var _initialize = require("./src/model/initialize");
 
 /**
  * app HOLLYWOOD "Kiralik Katil Ismet"
@@ -273,7 +412,7 @@ var _victimCreator = require("./src/view/victimCreator");
  *      - sisteme gir                                                                       FORM | LOGIN
  *      - müsterilerinin listesini gör                                                      LISTE
  *      - bu listede bir buton ile form acilmali ve yeni musteri girbilmeli                 + FORM/Client+(button add-victim)
- *      - ayni anda kurban listesi de olusturabilmeli musteriyi ekledikten sonra            + FORM/Victim +(button add-adresse)
+ *      - ayni anda kurban listesi de olusturabilmeli musteriyi ekledikten sonra            + FORM/Victim +(button add-addresse)
  *      - Musteri bilgileri : Data 
  *      - her musteriye tikladiginda kurban edileecek kisileri görür                        html1 (kurbanlar listesi)
  *      - sansli kurbana tikladiginda ise Adreslerini görür                                 html2 (sansli kurban ve bilgilerinin listesi)
@@ -303,8 +442,10 @@ var _victimCreator = require("./src/view/victimCreator");
  *          -
  * 
  */
-(0, _customerCreator.customerCreator)();
-(0, _victimCreator.victimCreator)(); // let data = [];
+(0, _eventsCustomer.eventsCustomer)();
+(0, _eventsVictim.eventsVictim)();
+var start = new _initialize.Initialize();
+start.init(); // let data = [];
 // data = [{
 //     customerId: "",
 //     customerName: "",
@@ -321,7 +462,7 @@ var _victimCreator = require("./src/view/victimCreator");
 //         victimStatus: false
 //     }]
 // }]
-},{"./src/view/customerCreator":"src/view/customerCreator.js","./src/view/victimCreator":"src/view/victimCreator.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./src/view/eventsCustomer":"src/view/eventsCustomer.js","./src/view/eventsVictim":"src/view/eventsVictim.js","./src/model/initialize":"src/model/initialize.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -349,7 +490,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64252" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55816" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

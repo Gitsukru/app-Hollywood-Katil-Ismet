@@ -12,7 +12,7 @@
  *      - sisteme gir                                                                       FORM | LOGIN
  *      - müsterilerinin listesini gör                                                      LISTE
  *      - bu listede bir buton ile form acilmali ve yeni musteri girbilmeli                 + FORM/Client+(button add-victim)
- *      - ayni anda kurban listesi de olusturabilmeli musteriyi ekledikten sonra            + FORM/Victim +(button add-adresse)
+ *      - ayni anda kurban listesi de olusturabilmeli musteriyi ekledikten sonra            + FORM/Victim +(button add-addresse)
  *      - Musteri bilgileri : Data 
  *      - her musteriye tikladiginda kurban edileecek kisileri görür                        html1 (kurbanlar listesi)
  *      - sansli kurbana tikladiginda ise Adreslerini görür                                 html2 (sansli kurban ve bilgilerinin listesi)
@@ -43,12 +43,15 @@
  * 
  */
 
-import {customerCreator} from "./src/view/customerCreator";
-import {victimCreator} from "./src/view/victimCreator";
+import { eventsCustomer } from "./src/view/eventsCustomer";
+import { eventsVictim } from "./src/view/eventsVictim";
+import { Initialize } from "./src/model/initialize";
 
 
-customerCreator();
-victimCreator();
+eventsCustomer();
+eventsVictim();
+let start = new Initialize();
+start.init();
 
 
 
