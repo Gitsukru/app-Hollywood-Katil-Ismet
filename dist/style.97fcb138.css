@@ -46,8 +46,9 @@
 
 .victim-mission-completed-btn {
   position: absolute;
-  right: 16px;
-  top: 0;
+  right: 45px;
+  top: 40px;
+  z-index: 10;
 }
 
 .client-logo {
@@ -56,6 +57,34 @@
 
 .card-header {
   cursor: pointer;
+}
+
+[data-status=true] {
+  position: relative;
+  opacity: 0.5;
+}
+[data-status=true]::after {
+  content: "";
+  position: absolute;
+  background: url(/430-4309094_mission-accomplished-png-transparent.00678c7e.png) center no-repeat;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-size: contain;
+}
+[data-status=true] .victim-mission-completed-btn {
+  display: none;
+}
+
+.customer-remove-btn {
+  position: absolute;
+  right: 1rem;
+  top: 0.9rem;
+  display: block;
+}
+.customer-remove-btn i {
+  pointer-events: none;
 }
 
 /*# sourceMappingURL=/style.97fcb138.css.map */

@@ -39,4 +39,19 @@ export class DbManager {
     updateItem(data) {
         localStorage.setItem(this.dbName, JSON.stringify(data))
     }
+
+    changeVictimStatus(selectedCustomerId, selectedVictimId){
+        let people = this.getDb();
+        let cIndex = people.findIndex(item => item.id === selectedCustomerId);
+        let vIndex = people[cIndex].victims.findIndex(item => item.id === selectedVictimId);
+        people[cIndex].victims[vIndex].missionStatus = true; 
+        this.updateItem(people);
+        return people[cIndex].victims[vIndex].missionStatus;
+    }
+    removeCustomer(selectedCustomerId){
+        let people = this.getDb();
+        let cIndex = people.findIndex(item => item.id === selectedCustomerId);
+        people.splice(people[cIndex], 1);
+        this.updateItem(people);
+    }
 }

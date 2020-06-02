@@ -124,7 +124,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.victimTemplate = void 0;
-var victimTemplate = "\n<div id=\"__ID__\" class=\"card-body victim-box my-2 mx-3\">\n<div class=\"d-flex\">\n    <div class=\"victim-img-box mr-auto\">\n        <img src=\"__IMG__\" width=\"100\" height=\"100\" alt=\"\" data-name=\"victim-img\">\n    </div>\n    <div class=\"victim-info-box col ml-3 p-3\">\n        <div class=\"row\">\n            <div class=\"col-12 pb-3\">\n                <strong class=\"mr-2\">\n                    <span data-name=\"victim-name\">__NAME__</span>\n                    <span data-name=\"victim-lastName\">__LASTNAME__</span>\n                </strong>\n                <span class=\"badge badge-info mr-2\" data-name=\"victim-gender\">__GENDER__</span>\n                <span class=\"badge badge-warning\" data-name=\"victim-age\">__AGE__</span>\n                <button class=\"btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn\">Mission\n                    completed <i class=\"fas fa-check ml-1\"></i></button>\n            </div>\n            <div class=\"col-12\">\n                <div class=\"border-top py-2\" data-name=\"victim-address\">\n                    <strong>Adres 1:</strong>__ADDRESS__</div>\n            </div>\n        </div>\n        </div>\n    </div>\n</div>";
+var victimTemplate = "\n<div id=\"__ID__\" data-status=\"__STATUS__\" class=\"card-body position-relative victim-box my-2 mx-3\">\n<button class=\"btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn\">Mission\ncompleted <i class=\"fas fa-check ml-1\"></i></button>\n<div class=\"d-flex\">\n    <div class=\"victim-img-box mr-auto\">\n        <img src=\"__IMG__\" width=\"100\" height=\"100\" alt=\"\" data-name=\"victim-img\">\n    </div>\n    <div class=\"victim-info-box col ml-3 p-3\">\n        <div class=\"row\">\n            <div class=\"col-12 pb-3\">\n                <strong class=\"mr-2\">\n                    <span data-name=\"victim-name\">__NAME__</span>\n                    <span data-name=\"victim-lastName\">__LASTNAME__</span>\n                </strong>\n                <span class=\"badge badge-info mr-2\" data-name=\"victim-gender\">__GENDER__</span>\n                <span class=\"badge badge-warning\" data-name=\"victim-age\">__AGE__</span>\n            </div>\n            <div class=\"col-12\">\n                <div class=\"border-top py-2\" data-name=\"victim-address\">\n                    <strong>Adres 1:</strong>__ADDRESS__</div>\n            </div>\n        </div>\n        </div>\n    </div>\n</div>";
 exports.victimTemplate = victimTemplate;
 },{}],"src/model/customer.js":[function(require,module,exports) {
 "use strict";
@@ -151,8 +151,8 @@ var Customer = /*#__PURE__*/function () {
     key: "addNew",
     value: function addNew(customer) {
       var customerListContainer = document.querySelector("#customer-list-container");
-      var customerTemplate = "\n        <div class=\"card\">\n            <div class=\"d-flex align-items-center card-header\" data-toggle=\"collapse\" data-target=\"#".concat(customer.id, "\">\n                <div class=\"d-flex align-items-center col mr-5\">\n                    <i class=\"fas fa-user-secret client-logo mr-2\"></i>\n                    <span class=\"mr-1\">").concat(customer.name, "</span>\n                    <span>").concat(customer.lastName, "</span>\n                </div>\n                <div class=\"col mr-5\">").concat(customer.phone, "</div>\n                <button class=\"btn btn-link btn-block text-left w-100px ml-auto text-right pr-0\" type=\"button\">\n                    <i class=\"fas fa-angle-down\"></i>\n                </button>\n            </div>\n\n            <div id=\"").concat(customer.id, "\" class=\"collapse\" data-parent=\"#customer-list-container\">\n            ").concat(customer.victims.reduce(function (carry, victim) {
-        return carry + _victimTemplate.victimTemplate.replace(/__ID__/, victim.id).replace(/__NAME__/, victim.name).replace(/__LASTNAME__/, victim.lastName).replace(/__AGE__/, victim.age).replace(/__GENDER__/, victim.gender).replace(/__IMG__/, victim.img).replace(/__ADDRESS__/, victim.address);
+      var customerTemplate = "\n        <div class=\"card\" data-customerId=\"".concat(customer.id, "\">\n            <button class=\"btn btn outline-danger btn-sm ml-auto customer-remove-btn\"><i class=\"far fa-trash-alt\"></i></button>\n            <div class=\"d-flex align-items-center card-header\" data-toggle=\"collapse\" data-target=\"#").concat(customer.id, "\">\n            <i class=\"fas fa-angle-down\"></i>\n            <div class=\"d-flex align-items-center col mr-5\">\n                    <i class=\"fas fa-user-secret client-logo mr-2\"></i>\n                    <span class=\"mr-1\">").concat(customer.name, "</span>\n                    <span>").concat(customer.lastName, "</span>\n                </div>\n                <div class=\"col mr-5\">").concat(customer.phone, "</div>\n            </div>\n\n            <div id=\"").concat(customer.id, "\" class=\"collapse\" data-parent=\"#customer-list-container\">\n            ").concat(customer.victims.reduce(function (carry, victim) {
+        return carry + _victimTemplate.victimTemplate.replace(/__ID__/, victim.id).replace(/__STATUS__/, victim.missionStatus).replace(/__NAME__/, victim.name).replace(/__LASTNAME__/, victim.lastName).replace(/__AGE__/, victim.age).replace(/__GENDER__/, victim.gender).replace(/__IMG__/, victim.img).replace(/__ADDRESS__/, victim.address);
       }, ''), "\n\n                <div class=\"d-flex mt-2 px-3 mb-4\">\n                    <button class=\"btn btn-danger btn-sm ml-auto add-victim-modal-btn\" data-toggle=\"modal\" data-target=\"#victim-register\">Add victim <i class=\"fas fa-user\"></i></button>\n                </div>\n\n            </div>\n        </div>");
       customerListContainer.innerHTML += customerTemplate;
     }
@@ -226,12 +226,72 @@ var DbManager = /*#__PURE__*/function () {
     value: function updateItem(data) {
       localStorage.setItem(this.dbName, JSON.stringify(data));
     }
+  }, {
+    key: "changeVictimStatus",
+    value: function changeVictimStatus(selectedCustomerId, selectedVictimId) {
+      var people = this.getDb();
+      var cIndex = people.findIndex(function (item) {
+        return item.id === selectedCustomerId;
+      });
+      var vIndex = people[cIndex].victims.findIndex(function (item) {
+        return item.id === selectedVictimId;
+      });
+      people[cIndex].victims[vIndex].missionStatus = true;
+      this.updateItem(people);
+      return people[cIndex].victims[vIndex].missionStatus;
+    }
+  }, {
+    key: "removeCustomer",
+    value: function removeCustomer(selectedCustomerId) {
+      var people = this.getDb();
+      var cIndex = people.findIndex(function (item) {
+        return item.id === selectedCustomerId;
+      });
+      people.splice(people[cIndex], 1);
+      this.updateItem(people);
+    }
   }]);
 
   return DbManager;
 }();
 
 exports.DbManager = DbManager;
+},{}],"src/model/resetValue.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ResetValue = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ResetValue = /*#__PURE__*/function () {
+  function ResetValue() {
+    _classCallCheck(this, ResetValue);
+  }
+
+  _createClass(ResetValue, [{
+    key: "reset",
+    value: function reset() {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      args.forEach(function (item) {
+        item.value = "";
+      });
+    }
+  }]);
+
+  return ResetValue;
+}();
+
+exports.ResetValue = ResetValue;
 },{}],"src/view/eventsCustomer.js":[function(require,module,exports) {
 "use strict";
 
@@ -244,11 +304,14 @@ var _customer = require("../model/customer");
 
 var _storage = require("../model/storage");
 
+var _resetValue = require("../model/resetValue");
+
 function eventsCustomer() {
   var customerName = document.querySelector("#customer-name");
   var customerLastName = document.querySelector("#customer-lastName");
   var customerPhone = document.querySelector("#customer-phone");
   var customerNewBtn = document.querySelector("[data-btn='newCustomerBtn']");
+  var customerListContainer = document.querySelector("#customer-list-container");
   customerNewBtn.addEventListener("click", function () {
     var customer = {
       id: "c-" + new Date().getTime(),
@@ -261,12 +324,21 @@ function eventsCustomer() {
     db.setDb(customer);
     var newCustomer = new _customer.Customer();
     newCustomer.addNew(customer);
-    customerName.value = "";
-    customerLastName.value = "";
-    customerPhone.value = "";
+    var rest = new _resetValue.ResetValue();
+    rest.reset(customerName, customerLastName, customerPhone);
+  });
+  customerListContainer.addEventListener("click", function (e) {
+    var targetElement = e.target;
+
+    if (targetElement.classList.contains("customer-remove-btn")) {
+      var selectedCustomerId = targetElement.parentElement.getAttribute("data-customerId");
+      var db = new _storage.DbManager();
+      db.removeCustomer(selectedCustomerId);
+      targetElement.parentElement.remove();
+    }
   });
 }
-},{"../model/customer":"src/model/customer.js","../model/storage":"src/model/storage.js"}],"src/model/victims.js":[function(require,module,exports) {
+},{"../model/customer":"src/model/customer.js","../model/storage":"src/model/storage.js","../model/resetValue":"src/model/resetValue.js"}],"src/model/victims.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -315,6 +387,8 @@ var _victims = require("../model/victims");
 
 var _storage = require("../model/storage");
 
+var _resetValue = require("../model/resetValue");
+
 function eventsVictim() {
   var victimName = document.querySelector("#victim-name");
   var victimLastName = document.querySelector("#victim-lastName");
@@ -331,7 +405,16 @@ function eventsVictim() {
 
     if (targetElement.classList.contains("add-victim-modal-btn")) {
       selectedCustomerId = targetElement.parentElement.parentElement.getAttribute("id");
-      console.log(selectedCustomerId);
+    }
+
+    if (targetElement.classList.contains("victim-mission-completed-btn")) {
+      var selectedVictimId = targetElement.parentElement.getAttribute("id");
+
+      var _selectedCustomerId = targetElement.parentElement.parentElement.getAttribute("id");
+
+      var db = new _storage.DbManager();
+      db.changeVictimStatus(_selectedCustomerId, selectedVictimId);
+      targetElement.parentElement.dataset.status = "true";
     }
   });
   newVictimBtn.addEventListener("click", function () {
@@ -342,15 +425,18 @@ function eventsVictim() {
       age: victimAge.value,
       gender: victimGender.value,
       img: victimImg.value,
-      address: victimAddress.value
+      address: victimAddress.value,
+      missionStatus: false
     };
     var newVictim = new _victims.Victims();
     newVictim.addNew(victim, selectedCustomerId);
     var db = new _storage.DbManager();
     db.addVictim(victim, selectedCustomerId);
+    var rest = new _resetValue.ResetValue();
+    rest.reset(victimName, victimLastName, victimAge, victimGender, victimImg, victimAddress);
   });
 }
-},{"../model/victims":"src/model/victims.js","../model/storage":"src/model/storage.js"}],"src/model/initialize.js":[function(require,module,exports) {
+},{"../model/victims":"src/model/victims.js","../model/storage":"src/model/storage.js","../model/resetValue":"src/model/resetValue.js"}],"src/model/initialize.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -441,6 +527,13 @@ var _initialize = require("./src/model/initialize");
  *      -view
  *          -
  * 
+ * 
+ *      -kalan isler:
+ *       gorev tamamlandi buton kontrolu
+ *       eklenen customer silme islemi
+ *       eklenen victim silme islemi
+ *       coklu adres tanimlama islemi
+ *       kod refaktoring islemleri
  */
 (0, _eventsCustomer.eventsCustomer)();
 (0, _eventsVictim.eventsVictim)();
@@ -490,7 +583,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55816" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60692" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

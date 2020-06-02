@@ -41,6 +41,13 @@
  *      -view
  *          -
  * 
+ * 
+ *      -kalan isler:
+ *       gorev tamamlandi buton kontrolu
+ *       eklenen customer silme islemi
+ *       eklenen victim silme islemi
+ *       coklu adres tanimlama islemi
+ *       kod refaktoring islemleri
  */
 
 import { eventsCustomer } from "./src/view/eventsCustomer";

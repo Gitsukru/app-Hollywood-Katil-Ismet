@@ -1,5 +1,5 @@
-*:focus{
-    outline:none !important;
+*:focus {
+    outline: none !important;
     box-shadow: none !important;
 }
 
@@ -22,34 +22,65 @@
     background-color: #444;
     color: white;
 }
-.w-100px{
+
+.w-100px {
     width: 100px;
     flex: 0 0 100;
 }
-.victim-box{
+
+.victim-box {
     background-color: #d1dade;
 }
 
+.victim-img-box {
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 10px;
+}
 
-.victim-img-box{
+.victim-info-box {
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 10px;
 }
-.victim-info-box{
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    padding: 10px;
-}
-.victim-mission-completed-btn{
+
+.victim-mission-completed-btn {
     position: absolute;
-    right:16px;
-    top: 0;
+    right: 45px;
+    top: 40px;
+    z-index: 10;
 }
-
-.client-logo{
+.client-logo {
     font-size: 45px;
 }
-.card-header{
+
+.card-header {
     cursor: pointer;
+}
+
+[data-status="true"] {
+    position: relative;
+    opacity: 0.5;
+
+    &::after {
+        content: "";
+        position: absolute;
+        background: url(./static/img/430-4309094_mission-accomplished-png-transparent.png) center no-repeat;
+        left:0;
+        top:0;
+        right:0;
+        bottom: 0;
+        background-size: contain;
+    }
+    .victim-mission-completed-btn{
+        display: none;
+    }
+}
+
+.customer-remove-btn {
+    position: absolute;
+    right:1rem;
+    top:0.9rem;
+    display:block;
+    i{pointer-events: none;}
 }
