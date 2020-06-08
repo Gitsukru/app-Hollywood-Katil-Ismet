@@ -48,10 +48,23 @@ export class DbManager {
         this.updateItem(people);
         return people[cIndex].victims[vIndex].missionStatus;
     }
+
     removeCustomer(selectedCustomerId){
         let people = this.getDb();
         let cIndex = people.findIndex(item => item.id === selectedCustomerId);
         people.splice(people[cIndex], 1);
         this.updateItem(people);
+    } 
+    
+    removeVictim(selectedCustomerId, selectedVictimId){
+        let people = this.getDb();
+        let cIndex = people.findIndex(item => item.id === selectedCustomerId);
+        let vIndex = people[cIndex].victims.findIndex(item => item.id === selectedVictimId);
+        people[cIndex].victims.splice([vIndex], 1);
+
+        this.updateItem(people);
     }
+
+
+
 }

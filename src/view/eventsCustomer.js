@@ -10,6 +10,10 @@ export function eventsCustomer() {
     const customerListContainer = document.querySelector("#customer-list-container");
 
     customerNewBtn.addEventListener("click", function () {
+        if(customerName.value === "" || customerLastName.value === "" || customerPhone.value === ""){
+            alert ("Lütfen bos alan birakma");
+            return
+        }
         const customer = {
             id: "c-"+new Date().getTime(),
             name:customerName.value,
@@ -29,8 +33,11 @@ export function eventsCustomer() {
         let targetElement = e.target;
         if(targetElement.classList.contains("customer-remove-btn")){
             let selectedCustomerId = targetElement.parentElement.getAttribute("data-customerId");
+            //storage clasini kullaniyoruz
             let db = new DbManager();
+            //db degiskeni id sine ulasip db de musteri silme islemi 
             db.removeCustomer(selectedCustomerId);
+            //üzerine tiklanan elementin kapsayici div(elementine yada parent elementine) ulsaip silme islemei
             targetElement.parentElement.remove();
         }
     })

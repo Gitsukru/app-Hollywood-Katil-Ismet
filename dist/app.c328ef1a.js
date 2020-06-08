@@ -124,7 +124,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.victimTemplate = void 0;
-var victimTemplate = "\n<div id=\"__ID__\" data-status=\"__STATUS__\" class=\"card-body position-relative victim-box my-2 mx-3\">\n<button class=\"btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn\">Mission\ncompleted <i class=\"fas fa-check ml-1\"></i></button>\n<div class=\"d-flex\">\n    <div class=\"victim-img-box mr-auto\">\n        <img src=\"__IMG__\" width=\"100\" height=\"100\" alt=\"\" data-name=\"victim-img\">\n    </div>\n    <div class=\"victim-info-box col ml-3 p-3\">\n        <div class=\"row\">\n            <div class=\"col-12 pb-3\">\n                <strong class=\"mr-2\">\n                    <span data-name=\"victim-name\">__NAME__</span>\n                    <span data-name=\"victim-lastName\">__LASTNAME__</span>\n                </strong>\n                <span class=\"badge badge-info mr-2\" data-name=\"victim-gender\">__GENDER__</span>\n                <span class=\"badge badge-warning\" data-name=\"victim-age\">__AGE__</span>\n            </div>\n            <div class=\"col-12\">\n                <div class=\"border-top py-2\" data-name=\"victim-address\">\n                    <strong>Adres 1:</strong>__ADDRESS__</div>\n            </div>\n        </div>\n        </div>\n    </div>\n</div>";
+var victimTemplate = "\n<div id=\"__ID__\" data-status=\"__STATUS__\" class=\"card-body position-relative victim-box my-2 mx-3\">\n<button class=\"btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn\">Mission\ncompleted <i class=\"fas fa-check ml-1\"></i></button>\n<button class=\"btn btn outline-danger btn-sm ml-auto victim-remove-btn\"><i class=\"far fa-trash-alt\"></i></button>\n           \n<div class=\"d-flex\">\n    <div class=\"victim-img-box mr-auto\">\n        <img src=\"__IMG__\" width=\"100\" height=\"100\" alt=\"\" data-name=\"victim-img\">\n    </div>\n    <div class=\"victim-info-box col ml-3 p-3\">\n        <div class=\"row\">\n            <div class=\"col-12 pb-3\">\n                <strong class=\"mr-2\">\n                    <span data-name=\"victim-name\">__NAME__</span>\n                    <span data-name=\"victim-lastName\">__LASTNAME__</span>\n                </strong>\n                <span class=\"badge badge-info mr-2\" data-name=\"victim-gender\">__GENDER__</span>\n                <span class=\"badge badge-warning\" data-name=\"victim-age\">__AGE__</span>\n            </div>\n            <div class=\"col-12\">\n               __ADDRESS__\n            </div>\n        </div>\n        </div>\n    </div>\n</div>";
 exports.victimTemplate = victimTemplate;
 },{}],"src/model/customer.js":[function(require,module,exports) {
 "use strict";
@@ -142,6 +142,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+//Musteri sinifi
 var Customer = /*#__PURE__*/function () {
   function Customer() {
     _classCallCheck(this, Customer);
@@ -150,9 +151,13 @@ var Customer = /*#__PURE__*/function () {
   _createClass(Customer, [{
     key: "addNew",
     value: function addNew(customer) {
-      var customerListContainer = document.querySelector("#customer-list-container");
+      //hatml de listelenecek alan
+      var customerListContainer = document.querySelector("#customer-list-container"); // Musteri temlate i 
+
       var customerTemplate = "\n        <div class=\"card\" data-customerId=\"".concat(customer.id, "\">\n            <button class=\"btn btn outline-danger btn-sm ml-auto customer-remove-btn\"><i class=\"far fa-trash-alt\"></i></button>\n            <div class=\"d-flex align-items-center card-header\" data-toggle=\"collapse\" data-target=\"#").concat(customer.id, "\">\n            <i class=\"fas fa-angle-down\"></i>\n            <div class=\"d-flex align-items-center col mr-5\">\n                    <i class=\"fas fa-user-secret client-logo mr-2\"></i>\n                    <span class=\"mr-1\">").concat(customer.name, "</span>\n                    <span>").concat(customer.lastName, "</span>\n                </div>\n                <div class=\"col mr-5\">").concat(customer.phone, "</div>\n            </div>\n\n            <div id=\"").concat(customer.id, "\" class=\"collapse\" data-parent=\"#customer-list-container\">\n            ").concat(customer.victims.reduce(function (carry, victim) {
-        return carry + _victimTemplate.victimTemplate.replace(/__ID__/, victim.id).replace(/__STATUS__/, victim.missionStatus).replace(/__NAME__/, victim.name).replace(/__LASTNAME__/, victim.lastName).replace(/__AGE__/, victim.age).replace(/__GENDER__/, victim.gender).replace(/__IMG__/, victim.img).replace(/__ADDRESS__/, victim.address);
+        return carry + _victimTemplate.victimTemplate.replace(/__ID__/, victim.id).replace(/__STATUS__/, victim.missionStatus).replace(/__NAME__/, victim.name).replace(/__LASTNAME__/, victim.lastName).replace(/__AGE__/, victim.age).replace(/__GENDER__/, victim.gender).replace(/__IMG__/, victim.img).replace(/__ADDRESS__/, victim.address.map(function (item) {
+          return "<div>".concat(item, "</div>");
+        }).join(''));
       }, ''), "\n\n                <div class=\"d-flex mt-2 px-3 mb-4\">\n                    <button class=\"btn btn-danger btn-sm ml-auto add-victim-modal-btn\" data-toggle=\"modal\" data-target=\"#victim-register\">Add victim <i class=\"fas fa-user\"></i></button>\n                </div>\n\n            </div>\n        </div>");
       customerListContainer.innerHTML += customerTemplate;
     }
@@ -250,6 +255,19 @@ var DbManager = /*#__PURE__*/function () {
       people.splice(people[cIndex], 1);
       this.updateItem(people);
     }
+  }, {
+    key: "removeVictim",
+    value: function removeVictim(selectedCustomerId, selectedVictimId) {
+      var people = this.getDb();
+      var cIndex = people.findIndex(function (item) {
+        return item.id === selectedCustomerId;
+      });
+      var vIndex = people[cIndex].victims.findIndex(function (item) {
+        return item.id === selectedVictimId;
+      });
+      people[cIndex].victims.splice([vIndex], 1);
+      this.updateItem(people);
+    }
   }]);
 
   return DbManager;
@@ -313,6 +331,11 @@ function eventsCustomer() {
   var customerNewBtn = document.querySelector("[data-btn='newCustomerBtn']");
   var customerListContainer = document.querySelector("#customer-list-container");
   customerNewBtn.addEventListener("click", function () {
+    if (customerName.value === "" || customerLastName.value === "" || customerPhone.value === "") {
+      alert("Lütfen bos alan birakma");
+      return;
+    }
+
     var customer = {
       id: "c-" + new Date().getTime(),
       name: customerName.value,
@@ -331,9 +354,12 @@ function eventsCustomer() {
     var targetElement = e.target;
 
     if (targetElement.classList.contains("customer-remove-btn")) {
-      var selectedCustomerId = targetElement.parentElement.getAttribute("data-customerId");
-      var db = new _storage.DbManager();
-      db.removeCustomer(selectedCustomerId);
+      var selectedCustomerId = targetElement.parentElement.getAttribute("data-customerId"); //storage clasini kullaniyoruz
+
+      var db = new _storage.DbManager(); //db degiskeni id sine ulasip db de musteri silme islemi 
+
+      db.removeCustomer(selectedCustomerId); //üzerine tiklanan elementin kapsayici div(elementine yada parent elementine) ulsaip silme islemei
+
       targetElement.parentElement.remove();
     }
   });
@@ -364,7 +390,9 @@ var Victims = /*#__PURE__*/function () {
     value: function addNew(victim, selectedCustomerId) {
       var victimListContainer = document.querySelector("#".concat(selectedCustomerId));
 
-      var victimTemp = _victimTemplate.victimTemplate.replace(/__ID__/, victim.id).replace(/__NAME__/, victim.name).replace(/__LASTNAME__/, victim.lastName).replace(/__AGE__/, victim.age).replace(/__GENDER__/, victim.gender).replace(/__IMG__/, victim.img).replace(/__ADDRESS__/, victim.address);
+      var victimTemp = _victimTemplate.victimTemplate.replace(/__ID__/, victim.id).replace(/__NAME__/, victim.name).replace(/__LASTNAME__/, victim.lastName).replace(/__AGE__/, victim.age).replace(/__GENDER__/, victim.gender).replace(/__IMG__/, victim.img).replace(/__ADDRESS__/, victim.address.map(function (item) {
+        return "<div>".concat(item, "</div>");
+      }).join(''));
 
       victimListContainer.insertAdjacentHTML("afterbegin", victimTemp);
     }
@@ -395,13 +423,12 @@ function eventsVictim() {
   var victimAge = document.querySelector("#victim-age");
   var victimGender = document.querySelector("#victim-gender");
   var victimImg = document.querySelector("#victim-img");
-  var victimAddress = document.querySelector("#victim-address");
   var newVictimBtn = document.querySelector("[data-btn='newVictimBtn']");
   var customerListContainer = document.querySelector("#customer-list-container");
+  var btnAddAddress = document.querySelector(".btn-add-address");
   var selectedCustomerId;
   customerListContainer.addEventListener("click", function (e) {
     var targetElement = e.target;
-    console.log(e.target);
 
     if (targetElement.classList.contains("add-victim-modal-btn")) {
       selectedCustomerId = targetElement.parentElement.parentElement.getAttribute("id");
@@ -416,8 +443,31 @@ function eventsVictim() {
       db.changeVictimStatus(_selectedCustomerId, selectedVictimId);
       targetElement.parentElement.dataset.status = "true";
     }
+
+    if (targetElement.classList.contains("victim-remove-btn")) {
+      var _selectedVictimId = targetElement.parentElement.getAttribute("id");
+
+      var _selectedCustomerId2 = targetElement.parentElement.parentElement.getAttribute("id");
+
+      var _db = new _storage.DbManager();
+
+      _db.removeVictim(_selectedCustomerId2, _selectedVictimId);
+
+      targetElement.parentElement.remove();
+    }
   });
   newVictimBtn.addEventListener("click", function () {
+    var addAddress = [];
+    var victimAddressInput = document.querySelectorAll(".victim-address");
+    victimAddressInput.forEach(function (item) {
+      addAddress.push(item.value);
+    });
+
+    if (victimName.value === "" || victimLastName.value === "" || victimAge.value === "" || victimGender.value === "" || victimImg.value === "" || addAddress[0].length === 0) {
+      alert("Bos alan birakma");
+      return;
+    }
+
     var victim = {
       id: "v-" + new Date().getTime(),
       name: victimName.value,
@@ -425,7 +475,7 @@ function eventsVictim() {
       age: victimAge.value,
       gender: victimGender.value,
       img: victimImg.value,
-      address: victimAddress.value,
+      address: addAddress,
       missionStatus: false
     };
     var newVictim = new _victims.Victims();
@@ -433,7 +483,15 @@ function eventsVictim() {
     var db = new _storage.DbManager();
     db.addVictim(victim, selectedCustomerId);
     var rest = new _resetValue.ResetValue();
-    rest.reset(victimName, victimLastName, victimAge, victimGender, victimImg, victimAddress);
+    rest.reset(victimName, victimLastName, victimAge, victimGender, victimImg);
+    victimAddressInput.forEach(function (item) {
+      item.value = "";
+    });
+  });
+  btnAddAddress.addEventListener("click", function (e) {
+    var addressInputTemplate = "<input  type=\"text\" class=\"form-control mb-2 victim-address\" placeholder=\"Address..\">";
+    e.target.parentElement.insertAdjacentHTML("beforeend", addressInputTemplate);
+    e.preventDefault();
   });
 }
 },{"../model/victims":"src/model/victims.js","../model/storage":"src/model/storage.js","../model/resetValue":"src/model/resetValue.js"}],"src/model/initialize.js":[function(require,module,exports) {
@@ -529,10 +587,7 @@ var _initialize = require("./src/model/initialize");
  * 
  * 
  *      -kalan isler:
- *       gorev tamamlandi buton kontrolu
- *       eklenen customer silme islemi
- *       eklenen victim silme islemi
- *       coklu adres tanimlama islemi
+ *       
  *       kod refaktoring islemleri
  */
 (0, _eventsCustomer.eventsCustomer)();
@@ -583,7 +638,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60692" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57880" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

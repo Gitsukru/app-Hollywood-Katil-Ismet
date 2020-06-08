@@ -1,10 +1,12 @@
 import {
     victimTemplate
 } from "../view/victimTemplate";
-
+//Musteri sinifi
 export class Customer {
     addNew(customer) {
+        //hatml de listelenecek alan
         const customerListContainer = document.querySelector("#customer-list-container");
+        // Musteri temlate i 
         const customerTemplate = `
         <div class="card" data-customerId="${customer.id}">
             <button class="btn btn outline-danger btn-sm ml-auto customer-remove-btn"><i class="far fa-trash-alt"></i></button>
@@ -28,7 +30,9 @@ export class Customer {
                     .replace(/__AGE__/, victim.age)
                     .replace(/__GENDER__/, victim.gender)
                     .replace(/__IMG__/, victim.img)
-                    .replace(/__ADDRESS__/, victim.address);
+                    .replace(/__ADDRESS__/, victim.address.map(item => {
+                        return `<div>${item}</div>`
+                    }).join(''));
                 }, '')
             }
 

@@ -10,7 +10,9 @@ export class Victims {
         .replace(/__AGE__/, victim.age)
         .replace(/__GENDER__/, victim.gender)
         .replace(/__IMG__/, victim.img)
-        .replace(/__ADDRESS__/, victim.address);
+        .replace(/__ADDRESS__/, victim.address.map(item => {
+            return `<div>${item}</div>`
+        }).join(''));
         victimListContainer.insertAdjacentHTML("afterbegin", victimTemp);
     }
 
