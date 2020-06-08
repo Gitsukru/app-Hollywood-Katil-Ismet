@@ -1,6 +1,4 @@
-import {
-    victimTemplate
-} from "../view/victimTemplate";
+import { victimTemplate } from "../view/victimTemplate";
 //Musteri sinifi
 export class Customer {
     addNew(customer) {
@@ -19,7 +17,6 @@ export class Customer {
                 </div>
                 <div class="col mr-5">${customer.phone}</div>
             </div>
-
             <div id="${customer.id}" class="collapse" data-parent="#customer-list-container">
             ${customer.victims.reduce((carry, victim) => {
                     return carry + victimTemplate
@@ -35,11 +32,9 @@ export class Customer {
                     }).join(''));
                 }, '')
             }
-
                 <div class="d-flex mt-2 px-3 mb-4">
                     <button class="btn btn-danger btn-sm ml-auto add-victim-modal-btn" data-toggle="modal" data-target="#victim-register">Add victim <i class="fas fa-user"></i></button>
                 </div>
-
             </div>
         </div>`;
         customerListContainer.innerHTML += customerTemplate;

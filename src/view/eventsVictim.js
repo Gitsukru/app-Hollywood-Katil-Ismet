@@ -16,6 +16,7 @@ export function eventsVictim() {
 
     customerListContainer.addEventListener("click", function (e) {
         let targetElement = e.target;
+
         if (targetElement.classList.contains("add-victim-modal-btn")) {
             selectedCustomerId = targetElement.parentElement.parentElement.getAttribute("id");
         }
@@ -39,6 +40,7 @@ export function eventsVictim() {
 
     newVictimBtn.addEventListener("click", function () {
         let addAddress = [];
+        
         const victimAddressInput = document.querySelectorAll(".victim-address");
 
         victimAddressInput.forEach(item => {

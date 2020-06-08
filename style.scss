@@ -50,6 +50,7 @@
     top: 40px;
     z-index: 10;
 }
+
 .client-logo {
     font-size: 45px;
 }
@@ -66,35 +67,42 @@
         content: "";
         position: absolute;
         background: url(./static/img/430-4309094_mission-accomplished-png-transparent.png) center no-repeat;
-        left:0;
-        top:0;
-        right:0;
+        left: 0;
+        top: 0;
+        right: 0;
         bottom: 0;
         background-size: contain;
     }
-    .victim-mission-completed-btn{
+
+    .victim-mission-completed-btn {
         display: none;
     }
 }
 
 .customer-remove-btn {
     position: absolute;
-    right:1rem;
-    top:0.9rem;
-    display:block;
-    i{pointer-events: none;}
+    right: 1rem;
+    top: 0.9rem;
+    display: block;
+
+    i {
+        pointer-events: none;
+    }
 }
 
-.victim-remove-btn{
+.victim-remove-btn {
     position: absolute;
     right: 1.5rem;
     bottom: 1.5rem;
     display: block;
     z-index: 10;
-    i{pointer-events: none;}
+
+    i {
+        pointer-events: none;
+    }
 }
 
-.btn-add-address{
+.btn-add-address {
     position: absolute;
     bottom: 4px;
     right: 5px;

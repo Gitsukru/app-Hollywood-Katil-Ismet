@@ -1,4 +1,3 @@
-
 export const victimTemplate =  `
 <div id="__ID__" data-status="__STATUS__" class="card-body position-relative victim-box my-2 mx-3">
 <button class="btn btn-outline-success ml-auto btn-sm victim-mission-completed-btn">Mission

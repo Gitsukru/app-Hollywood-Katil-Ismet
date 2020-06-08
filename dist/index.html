@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <!-- Required meta tags -->
@@ -29,35 +29,25 @@
             Musteri Listesi
         </h1>
         <div class="d-flex align-item-center card-header-custom card-header">
-            <div class="col mr-5">Name last name</div>
-            <div class="col mr-5">Phone</div>
+            <div class="col mr-5">Isim soyisim</div>
+            <div class="col mr-5">Telefon</div>
             <div class="ml-auto text-right w-100px"></div>
         </div>
 
-
-
-
-
-
-
-
-
         <div class="accordion" id="customer-list-container">
-
+            <!-- Clients list -->
         </div>
         <div class="d-flex mt-2 ">
-            <button class="btn btn-success ml-auto" data-toggle="modal" data-target="#customer-register">Add customer
+            <button class="btn btn-success ml-auto" data-toggle="modal" data-target="#customer-register">Musteri ekle
                 <i class="fas fa-user-secret ml-1"></i></button>
         </div>
-
-
 
         <!-- Modal customer -->
         <div class="modal fade" id="customer-register" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">New customer</h5>
+                        <h5 class="modal-title">Yeni kurban ekle</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -82,12 +72,12 @@
             </div>
         </div>
 
-    <!--Victim modal-->
+        <!--Victim modal-->
         <div class="modal fade" id="victim-register" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">New victim</h5>
+                        <h5 class="modal-title">Yeni kurban</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -107,21 +97,20 @@
                                     <input type="text" class="form-control" id="victim-age" placeholder="Yas..">
                                 </div>
                                 <div class="form-group col-6">
-                                   <select class="form-control" id="victim-gender">
-                                       <option selected="">Cinsiyeti seç</option>
-                                       <option>Male</option>
-                                       <option>Femal</option>
-                                   </select>
+                                    <select class="form-control" id="victim-gender">
+                                        <option selected="">Cinsiyeti seç</option>
+                                        <option>Bayan</option>
+                                        <option>Bay</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="victim-img" placeholder="photo..">
+                                <input type="text" class="form-control" id="victim-img" placeholder="Fotograf..">
                             </div>
                             <div id="victim-address-box" class="form-group position-relative">
-                                <input type="text" class="form-control mb-2 victim-address" placeholder="Address..">
+                                <input type="text" class="form-control mb-2 victim-address" placeholder="Adres..">
                                 <button class="btn btn-outline-success btn-sm btn-add-address">+</button>
                             </div>
-                           
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -130,18 +119,9 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
         <script src="/app.c328ef1a.js"></script>
 </div></body>
-
 </html>

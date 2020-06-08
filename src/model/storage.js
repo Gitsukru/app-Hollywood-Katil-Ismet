@@ -14,7 +14,6 @@ export class DbManager {
         return people;
     }
 
-
     //localstorage setDb islemi metodu 1 parametre olarak aliyor ve ne gonderecekse 
     //onu belirtimis oluyoruz
     setDb(person) {
@@ -26,7 +25,6 @@ export class DbManager {
         // localStorage setItem islemi iki parametre aliyor (key, value) people i 
         //json.sringFy formatinda dbName("Katil") key in karsiligina set ediyor
         this.updateItem(people);
-
     }
 
     addVictim(victim, selectedCustomerId) {
@@ -61,10 +59,6 @@ export class DbManager {
         let cIndex = people.findIndex(item => item.id === selectedCustomerId);
         let vIndex = people[cIndex].victims.findIndex(item => item.id === selectedVictimId);
         people[cIndex].victims.splice([vIndex], 1);
-
         this.updateItem(people);
     }
-
-
-
 }

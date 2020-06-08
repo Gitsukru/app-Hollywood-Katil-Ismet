@@ -39,64 +39,16 @@
  *          - üstünücizen(){} ==>is bitince soluk hale gelecek fonksiyon
  * 
  *      -view
- *          -
- * 
- * 
- *      -kalan isler:
- *       
- *       kod refaktoring islemleri
+ *          - eventsCustomer.js
+ *          - eventsVictim.js
+ *          - victimTemplate.js
  */
 
 import { eventsCustomer } from "./src/view/eventsCustomer";
 import { eventsVictim } from "./src/view/eventsVictim";
 import { Initialize } from "./src/model/initialize";
 
-
 eventsCustomer();
 eventsVictim();
 let start = new Initialize();
 start.init();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// let data = [];
-
-// data = [{
-//     customerId: "",
-//     customerName: "",
-//     customerLastName: "",
-//     customerPhone: "",
-//     customerVictims: [{
-//         victimId: "",
-//         victimImg: "",
-//         victimName: "",
-//         victimLastname: "",
-//         victimAge: "",
-//         victimGender: "",
-//         victimAdresses: [],
-//         victimStatus: false
-//     }]
-// }]

@@ -13,7 +13,7 @@ export class Victims {
         .replace(/__ADDRESS__/, victim.address.map(item => {
             return `<div>${item}</div>`
         }).join(''));
+        
         victimListContainer.insertAdjacentHTML("afterbegin", victimTemp);
     }
-
 };

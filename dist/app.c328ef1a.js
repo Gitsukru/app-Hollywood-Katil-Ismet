@@ -154,11 +154,11 @@ var Customer = /*#__PURE__*/function () {
       //hatml de listelenecek alan
       var customerListContainer = document.querySelector("#customer-list-container"); // Musteri temlate i 
 
-      var customerTemplate = "\n        <div class=\"card\" data-customerId=\"".concat(customer.id, "\">\n            <button class=\"btn btn outline-danger btn-sm ml-auto customer-remove-btn\"><i class=\"far fa-trash-alt\"></i></button>\n            <div class=\"d-flex align-items-center card-header\" data-toggle=\"collapse\" data-target=\"#").concat(customer.id, "\">\n            <i class=\"fas fa-angle-down\"></i>\n            <div class=\"d-flex align-items-center col mr-5\">\n                    <i class=\"fas fa-user-secret client-logo mr-2\"></i>\n                    <span class=\"mr-1\">").concat(customer.name, "</span>\n                    <span>").concat(customer.lastName, "</span>\n                </div>\n                <div class=\"col mr-5\">").concat(customer.phone, "</div>\n            </div>\n\n            <div id=\"").concat(customer.id, "\" class=\"collapse\" data-parent=\"#customer-list-container\">\n            ").concat(customer.victims.reduce(function (carry, victim) {
+      var customerTemplate = "\n        <div class=\"card\" data-customerId=\"".concat(customer.id, "\">\n            <button class=\"btn btn outline-danger btn-sm ml-auto customer-remove-btn\"><i class=\"far fa-trash-alt\"></i></button>\n            <div class=\"d-flex align-items-center card-header\" data-toggle=\"collapse\" data-target=\"#").concat(customer.id, "\">\n            <i class=\"fas fa-angle-down\"></i>\n            <div class=\"d-flex align-items-center col mr-5\">\n                    <i class=\"fas fa-user-secret client-logo mr-2\"></i>\n                    <span class=\"mr-1\">").concat(customer.name, "</span>\n                    <span>").concat(customer.lastName, "</span>\n                </div>\n                <div class=\"col mr-5\">").concat(customer.phone, "</div>\n            </div>\n            <div id=\"").concat(customer.id, "\" class=\"collapse\" data-parent=\"#customer-list-container\">\n            ").concat(customer.victims.reduce(function (carry, victim) {
         return carry + _victimTemplate.victimTemplate.replace(/__ID__/, victim.id).replace(/__STATUS__/, victim.missionStatus).replace(/__NAME__/, victim.name).replace(/__LASTNAME__/, victim.lastName).replace(/__AGE__/, victim.age).replace(/__GENDER__/, victim.gender).replace(/__IMG__/, victim.img).replace(/__ADDRESS__/, victim.address.map(function (item) {
           return "<div>".concat(item, "</div>");
         }).join(''));
-      }, ''), "\n\n                <div class=\"d-flex mt-2 px-3 mb-4\">\n                    <button class=\"btn btn-danger btn-sm ml-auto add-victim-modal-btn\" data-toggle=\"modal\" data-target=\"#victim-register\">Add victim <i class=\"fas fa-user\"></i></button>\n                </div>\n\n            </div>\n        </div>");
+      }, ''), "\n                <div class=\"d-flex mt-2 px-3 mb-4\">\n                    <button class=\"btn btn-danger btn-sm ml-auto add-victim-modal-btn\" data-toggle=\"modal\" data-target=\"#victim-register\">Add victim <i class=\"fas fa-user\"></i></button>\n                </div>\n            </div>\n        </div>");
       customerListContainer.innerHTML += customerTemplate;
     }
   }]);
@@ -358,7 +358,7 @@ function eventsCustomer() {
 
       var db = new _storage.DbManager(); //db degiskeni id sine ulasip db de musteri silme islemi 
 
-      db.removeCustomer(selectedCustomerId); //üzerine tiklanan elementin kapsayici div(elementine yada parent elementine) ulsaip silme islemei
+      db.removeCustomer(selectedCustomerId); //üzerine tiklanan elementin kapsayici div(elementine yada parent elementine) ulasip silme islemei
 
       targetElement.parentElement.remove();
     }
@@ -583,33 +583,14 @@ var _initialize = require("./src/model/initialize");
  *          - üstünücizen(){} ==>is bitince soluk hale gelecek fonksiyon
  * 
  *      -view
- *          -
- * 
- * 
- *      -kalan isler:
- *       
- *       kod refaktoring islemleri
+ *          - eventsCustomer.js
+ *          - eventsVictim.js
+ *          - victimTemplate.js
  */
 (0, _eventsCustomer.eventsCustomer)();
 (0, _eventsVictim.eventsVictim)();
 var start = new _initialize.Initialize();
-start.init(); // let data = [];
-// data = [{
-//     customerId: "",
-//     customerName: "",
-//     customerLastName: "",
-//     customerPhone: "",
-//     customerVictims: [{
-//         victimId: "",
-//         victimImg: "",
-//         victimName: "",
-//         victimLastname: "",
-//         victimAge: "",
-//         victimGender: "",
-//         victimAdresses: [],
-//         victimStatus: false
-//     }]
-// }]
+start.init();
 },{"./src/view/eventsCustomer":"src/view/eventsCustomer.js","./src/view/eventsVictim":"src/view/eventsVictim.js","./src/model/initialize":"src/model/initialize.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -638,7 +619,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57880" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62460" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
